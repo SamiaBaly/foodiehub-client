@@ -203,13 +203,46 @@ const LoginForm = () => {
           ? "Logging in..."
           : "Login"}
       </button>
+      <div className="mt-6 rounded-xl border border-slate-700 bg-slate-800/60 p-4">
+        <h3 className="mb-4 text-lg font-semibold text-white">
+          Demo Accounts
+        </h3>
+
+        <div className="space-y-4 text-sm">
+
+          <div className="rounded-lg bg-slate-900 p-3">
+            <p className="font-semibold text-blue-400">
+              👑 Admin
+            </p>
+            <p className="text-slate-300">
+              Email: admin@gmail.com
+            </p>
+            <p className="text-slate-300">
+              Password: 123456
+            </p>
+          </div>
+
+          <div className="rounded-lg bg-slate-900 p-3">
+            <p className="font-semibold text-green-400">
+              👤 Demo User
+            </p>
+            <p className="text-slate-300">
+              Email: mohima@gmail.com
+            </p>
+            <p className="text-slate-300">
+              Password: 123456
+            </p>
+          </div>
+
+        </div>
+      </div>
 
       {/* Register Link */}
 
       <div className="text-center">
 
         <span className="text-slate-400">
-          Don't have an account?
+          Dont have an account?
         </span>
 
         <Link
