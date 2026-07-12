@@ -131,8 +131,8 @@ npm install
 Create a `.env.local`
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=YOUR_API_URL
+NEXT_PUBLIC_BASE_URL=YOUR_BASE_URL
 ```
 
 Run
