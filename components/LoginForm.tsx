@@ -71,7 +71,19 @@ const LoginForm = () => {
 
     }
   };
-
+  const fillDemo = (role: "admin" | "user") => {
+    if (role === "admin") {
+      setFormData({
+        email: "admin@gmail.com",
+        password: "123456",
+      });
+    } else {
+      setFormData({
+        email: "mohima@gmail.com",
+        password: "123456",
+      });
+    }
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -203,39 +215,31 @@ const LoginForm = () => {
           ? "Logging in..."
           : "Login"}
       </button>
-      <div className="mt-6 rounded-xl border border-slate-700 bg-slate-800/60 p-4">
-        <h3 className="mb-4 text-lg font-semibold text-white">
-          Demo Accounts
+
+      <div className="mt-6 rounded-xl border border-slate-700 bg-slate-900 p-4">
+        <h3 className="mb-4 text-center text-lg font-semibold text-white">
+          Demo Login
         </h3>
 
-        <div className="space-y-4 text-sm">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => fillDemo("admin")}
+            className="rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-700"
+          >
+            👑 Use Admin Demo
+          </button>
 
-          <div className="rounded-lg bg-slate-900 p-3">
-            <p className="font-semibold text-blue-400">
-              👑 Admin
-            </p>
-            <p className="text-slate-300">
-              Email: admin@gmail.com
-            </p>
-            <p className="text-slate-300">
-              Password: 123456
-            </p>
-          </div>
-
-          <div className="rounded-lg bg-slate-900 p-3">
-            <p className="font-semibold text-green-400">
-              👤 Demo User
-            </p>
-            <p className="text-slate-300">
-              Email: mohima@gmail.com
-            </p>
-            <p className="text-slate-300">
-              Password: 123456
-            </p>
-          </div>
-
+          <button
+            type="button"
+            onClick={() => fillDemo("user")}
+            className="rounded-xl bg-green-600 px-4 py-3 font-semibold text-white transition hover:bg-green-700"
+          >
+            👤 Use User Demo
+          </button>
         </div>
       </div>
+      
 
       {/* Register Link */}
 
