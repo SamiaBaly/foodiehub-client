@@ -85,10 +85,9 @@ const MyFoodsPage = () => {
 
 
       const response = await fetch(
-        `proccess.env.NEXT_PUBLIC_API_URL/api/foods/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/foods/${id}`,
         {
           method: "DELETE",
-
           headers: {
             Authorization: `Bearer ${token}`,
           },
