@@ -249,16 +249,25 @@ Password
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
-- Home Page
-- Foods Page
-- Food Details
-- Dashboard
-- Add Food
-- Analytics
+### 🏠 Home Page
+![Home](./screenshots/home.jpg)
 
-(Add screenshots here)
+### 🍔 Foods Page
+![Foods](./screenshots/foods.jpg)
+
+### 📄 Food Details
+![Food Details](./screenshots/food-details.jpg)
+
+### 📊 Dashboard
+![Dashboard](./screenshots/dashboard.jpg)
+
+### ➕ Add Food
+![Add Food](./screenshots/add-food.jpg)
+
+### 📈 Analytics
+![Analytics](./screenshots/analytics.jpg)
 
 ---
 
