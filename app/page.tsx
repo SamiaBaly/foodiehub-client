@@ -4,6 +4,11 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import PopularCategories from "@/components/PopularCategories";
+import HowItWorks from "@/components/HowItWorks";
+import Testimonials from "@/components/Testimonials";
+import Statistics from "@/components/Statistics";
+import FAQ from "@/components/Newsletter";
 
 
 export default function HomePage() {
@@ -16,6 +21,11 @@ export default function HomePage() {
       <FeaturedFoods />
       <FoodCategories />
       <WhyChooseUs />
+      <PopularCategories />
+      <HowItWorks />
+      <Testimonials />
+      <Statistics />
+      <FAQ/>
      
 
     </main>

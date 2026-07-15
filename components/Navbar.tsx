@@ -7,6 +7,7 @@ import {
   useRouter,
 } from "next/navigation";
 import { SeparatorVertical } from "lucide-react";
+import { googleLogout } from "@react-oauth/google";
 
 interface User {
   name: string;
@@ -55,6 +56,10 @@ export default function Navbar() {
 
   const handleLogout = () => {
 
+    // Logout from Google session
+    googleLogout();
+
+    // Remove app data
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 

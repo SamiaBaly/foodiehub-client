@@ -7,6 +7,7 @@ import { registerUser } from "@/services/auth.service";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "react-toastify";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 
 const RegisterForm = () => {
@@ -118,8 +119,50 @@ const RegisterForm = () => {
 
   };
 
+  const handleGoogleSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
 
+    try {
 
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/google-login`,
+        {
+          credential: credentialResponse.credential,
+        }
+      );
+
+      const data = res.data;
+
+      // Save token
+      localStorage.setItem("token", data.token);
+
+      // Save user
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
+      toast.success("Google Login Successful 🎉");
+
+      console.log("Before redirect");
+
+      router.push("/");
+
+      console.log("After redirect");
+
+      // যদি redirect না হয়, এটা ব্যবহার করে test করতে পারো:
+      // window.location.href = "/";
+
+    } catch (error) {
+
+      console.error(error);
+
+      toast.error("Google Login Failed");
+
+    }
+
+  };
 
 
   return (
@@ -319,6 +362,30 @@ const RegisterForm = () => {
 
 
       </button>
+      <div className="mt-8">
+
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-slate-700" />
+          <span className="text-sm text-slate-400">
+            OR
+          </span>
+          <div className="h-px flex-1 bg-slate-700" />
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => toast.error("Google Login Failed")}
+            auto_select={ false}
+            theme="outline"
+            size="large"
+            shape="rectangular"
+            text="signup_with"
+            width="350"
+          />
+        </div>
+
+      </div>
       <div className="text-center pt-2">
 
         <span className="text-slate-400">
