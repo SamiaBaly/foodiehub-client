@@ -7,6 +7,10 @@ import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { loginUser } from "@/services/auth.service";
 import { toast } from "react-toastify";
+import {
+  GoogleLogin,
+  CredentialResponse,
+} from "@react-oauth/google";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -82,6 +86,36 @@ const LoginForm = () => {
         email: "mohima@gmail.com",
         password: "123456",
       });
+    }
+  };
+
+  const handleGoogleSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/google-login`,
+        {
+          credential: credentialResponse.credential,
+        }
+      );
+
+      const { token, user } = res.data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
+
+      toast.success("Google Login Successful 🎉");
+
+      router.push("/dashboard");
+      router.refresh();
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Google Login Failed");
     }
   };
   return (
@@ -237,6 +271,24 @@ const LoginForm = () => {
           >
             👤 Use User Demo
           </button>
+        </div>
+      </div>
+      <div className="mt-8">
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-slate-700" />
+          <span className="text-sm text-slate-400">
+            OR
+          </span>
+          <div className="h-px flex-1 bg-slate-700" />
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => {
+              toast.error("Google Login Failed");
+            }}
+          />
         </div>
       </div>
       
