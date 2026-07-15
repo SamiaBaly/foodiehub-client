@@ -55,35 +55,21 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-
-    // Logout from Google session
     googleLogout();
 
-    // Remove app data
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
     setUser(null);
 
     router.push("/login");
-
+    router.refresh();
   };
 
   return (
 
-    <nav
-      className="
-        fixed
-        top-0
-        left-0
-        w-full
-        z-50
-        bg-slate-950/90
-        backdrop-blur-xl
-        border-b
-        border-slate-800
-      "
-    >
+    <nav className="fixed top-0 left-0  w-full z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800 "
+>
 
 
       <div
@@ -128,16 +114,7 @@ export default function Navbar() {
 
         {/* Desktop */}
 
-        <div
-          className="
-            hidden
-            md:flex
-            items-center
-            gap-8
-          "
-        >
-
-
+        <div className=" hidden md:flex items-center gap-8" >
           <Link
             href="/"
             className={activeClass("/")}
@@ -152,6 +129,20 @@ export default function Navbar() {
             Foods
           </Link>
 
+          <Link
+            href="/about"
+            className={activeClass("/about")}
+          >
+            About
+          </Link>
+
+          <Link
+            href="/contact"
+            className={activeClass("/contact")}
+          >
+            Contact
+          </Link>
+
           {user && (
             <Link
               href="/dashboard"
@@ -164,98 +155,82 @@ export default function Navbar() {
 
 
 
-
           <div className="flex items-center gap-3">
 
+            {user ? (
 
-            {
-              user ? (
+              <div className="flex items-center gap-4">
 
-                <div className="flex items-center gap-4">
+                <SeparatorVertical />
 
+                <div className="flex items-center gap-3">
 
-                  <SeparatorVertical />
+                  <img
+                    src={user.photo || "/avatar.png"}
+                    alt={user.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
 
+                  <span className="text-white font-semibold">
+                    {user.name}
+                  </span>
 
-                  <div className="flex items-center gap-3">
-
-                    <img
-                      src={user.photo || "/avatar.png"}
-                      alt={user.name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-
-                    <span className="text-white font-semibold">
-                      {user.name}
-                    </span>
-
-                    <button
-                      onClick={handleLogout}
-                      className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-xl"
-                    >
-                      Logout
-                    </button>
-
-                  </div>
-
-
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      handleLogout();
+                    }}
+                    className="
+    w-full
+    bg-red-600
+    hover:bg-red-700
+    text-white
+    py-3
+    rounded-xl
+  "
+                  >
+                    Logout
+                  </button>
 
                 </div>
 
+              </div>
 
-              ) : (
+            ) : (
 
+              <>
 
                 <Link
-
                   href="/login"
-
                   className="
-                    bg-blue-600
-                    hover:bg-blue-700
-                    text-white
-                    px-5
-                    py-2
-                    rounded-xl
-                  "
-
+          bg-blue-600
+          hover:bg-blue-700
+          text-white
+          px-5
+          py-2
+          rounded-xl
+        "
                 >
-
                   Login
-
                 </Link>
 
+                <Link
+                  href="/register"
+                  className="
+          bg-green-600
+          hover:bg-green-700
+          text-white
+          px-5
+          py-2
+          rounded-xl
+        "
+                >
+                  Register
+                </Link>
 
-              )
+              </>
 
-            }
-
-
-
-
-
-            {/* Always Show Register */}
-
-            <Link
-
-              href="/register"
-
-              className="
-                bg-green-600
-                hover:bg-green-700
-                text-white
-                px-5
-                py-2
-                rounded-xl
-              "
-
-            >
-
-              Register
-
-            </Link>
-
-
+            )}
 
           </div>
 
@@ -264,26 +239,11 @@ export default function Navbar() {
         </div>
 
 
-
-
-
-
-        {/* Mobile Button */}
-
         <button
-
           onClick={() => setMenuOpen(!menuOpen)}
-
-          className="
-            md:hidden
-            text-white
-            text-3xl
-          "
-
+          className="md:hidden text-white text-3xl"
         >
-
           ☰
-
         </button>
 
 
@@ -292,151 +252,112 @@ export default function Navbar() {
 
 
 
-
-
-
-
-
       {/* Mobile Menu */}
-
-
-      {
-        menuOpen && (
-
-          <div
-            className="
-              md:hidden
-              bg-slate-900
-              border-t
-              border-slate-800
-              px-6
-              py-5
-              space-y-4
-            "
+      {menuOpen && (
+        <div
+          className="
+      md:hidden
+      bg-slate-900
+      border-t
+      border-slate-800
+      px-6
+      py-5
+      space-y-4
+    "
+        >
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            className={`block ${activeClass("/")}`}
           >
+            Home
+          </Link>
 
+          <Link
+            href="/foods"
+            onClick={() => setMenuOpen(false)}
+            className={`block ${activeClass("/foods")}`}
+          >
+            Foods
+          </Link>
 
+          <Link
+            href="/about"
+            onClick={() => setMenuOpen(false)}
+            className={`block ${activeClass("/about")}`}
+          >
+            About
+          </Link>
+
+          <Link
+            href="/contact"
+            onClick={() => setMenuOpen(false)}
+            className={`block ${activeClass("/contact")}`}
+          >
+            Contact
+          </Link>
+
+          {user && (
             <Link
-              href="/"
-              className="block text-slate-300"
+              href="/dashboard"
+              onClick={() => setMenuOpen(false)}
+              className={`block ${activeClass("/dashboard")}`}
             >
-              Home
+              Dashboard
             </Link>
+          )}
 
-
-
-            <Link
-              href="/foods"
-              className="block text-slate-300"
-            >
-              Foods
-            </Link>
-
-
-
-
-
-            {
-              user && (
-
+          <div className="pt-4 border-t border-slate-700">
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="
+            w-full
+            bg-red-600
+            hover:bg-red-700
+            text-white
+            py-3
+            rounded-xl
+          "
+              >
+                Logout
+              </button>
+            ) : (
+              <div className="flex flex-col gap-3">
                 <Link
-                  href="/dashboard"
-                  className="block text-slate-300"
-                >
-
-                  Dashboard
-
-                </Link>
-
-              )
-            }
-
-
-
-
-
-
-            {
-              user ? (
-
-                <button
-
-                  onClick={handleLogout}
-
-                  className="
-                    bg-red-600
-                    text-white
-                    px-5
-                    py-2
-                    rounded-xl
-                  "
-
-                >
-
-                  Logout
-
-                </button>
-
-
-              ) : (
-
-
-                <Link
-
                   href="/login"
-
+                  onClick={() => setMenuOpen(false)}
                   className="
-                    inline-block
-                    bg-blue-600
-                    text-white
-                    px-5
-                    py-2
-                    rounded-xl
-                  "
-
+              text-center
+              bg-blue-600
+              hover:bg-blue-700
+              text-white
+              py-3
+              rounded-xl
+            "
                 >
-
                   Login
-
                 </Link>
 
-
-              )
-
-            }
-
-
-
-
-            {/* Mobile Register Always */}
-
-            <Link
-
-              href="/register"
-
-              className="
-                inline-block
-                bg-green-600
-                text-white
-                px-5
-                py-2
-                rounded-xl
-              "
-
-            >
-
-              Register
-
-            </Link>
-
-
-
+                <Link
+                  href="/register"
+                  onClick={() => setMenuOpen(false)}
+                  className="
+              text-center
+              bg-green-600
+              hover:bg-green-700
+              text-white
+              py-3
+              rounded-xl
+            "
+                >
+                  Register
+                </Link>
+              </div>
+            )}
           </div>
-
-
-        )
-      }
-
+        </div>
+      )}
 
 
     </nav>
